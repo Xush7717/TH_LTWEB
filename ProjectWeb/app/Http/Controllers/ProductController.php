@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -55,14 +55,16 @@ class ProductController extends Controller
 
     public function detail($id)
     {
-        $products = $this->getProducts();
+        // $products = $this->getProducts();
 
-        if (!isset($products[$id])) {
-            abort(404);
-        }
+        // if (!isset($products[$id])) {
+        //     abort(404);
+        // }
 
-        $product = $products[$id];
+        // $product = $products[$id];
 
-        return view('pages.products.detail', compact('product'));
+        // return view('pages.products.detail', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('pages.products.detail', compact('product'));   
     }
 }

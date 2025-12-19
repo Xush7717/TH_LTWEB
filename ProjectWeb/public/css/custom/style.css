@@ -1031,5 +1031,88 @@ body {
     background-color: #1a8c5a;
 }
 
+/* 1. Định dạng khối bao quanh */
+.user-dropdown-container {
+    position: relative; /* Để menu con bám theo nó */
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 0;
+}
 
+/* 2. Định dạng link tên người dùng */
+.user-name-link {
+    text-decoration: none;
+    color: #333; /* Màu chữ đen */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Khoảng cách giữa icon và tên */
+}
 
+.user-name-link:hover {
+    color: #007bff; /* Đổi màu khi rê chuột */
+}
+
+.arrow-down {
+    font-size: 10px;
+    color: #888;
+}
+
+/* 3. ĐỊNH DẠNG MENU XỔ XUỐNG (QUAN TRỌNG) */
+.custom-dropdown-menu {
+    display: none; /* Mặc định ẩn đi */
+    position: absolute;
+    top: 100%; /* Hiện ngay bên dưới tên */
+    right: 0; /* Canh lề phải */
+    background-color: white;
+    min-width: 200px; /* Chiều rộng tối thiểu */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Đổ bóng cho đẹp */
+    padding: 10px 0;
+    list-style: none; /* Bỏ dấu chấm tròn đầu dòng */
+    z-index: 999; /* Luôn nổi lên trên cùng */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* 4. Hiệu ứng: RÊ CHUỘT VÀO LÀ HIỆN MENU */
+.user-dropdown-container:hover .custom-dropdown-menu {
+    display: block; /* Hiện menu lên */
+}
+
+/* 5. Định dạng từng mục trong menu */
+.custom-dropdown-menu li a {
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s;
+}
+
+.custom-dropdown-menu li a:hover {
+    background-color: #f1f1f1; /* Màu nền xám khi rê chuột vào mục */
+    color: #007bff;
+}
+
+/* 6. Định dạng nút Đăng xuất */
+.logout-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #dc3545; /* Màu đỏ cho nút đăng xuất */
+    font-weight: bold;
+    font-size: 14px; /* Cỡ chữ bằng với thẻ a */
+}
+
+.logout-btn:hover {
+    background-color: #fff5f5;
+}
+
+/* Đường kẻ ngang phân cách */
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 5px 0;
+}

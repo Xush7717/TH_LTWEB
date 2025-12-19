@@ -8,9 +8,34 @@
             <button type="submit">Tìm kiếm</button>
         </form>
         <div class="header-icons">
+            @guest
             <a href="{{ route('login') }}" class="header-icon login-icon" title="Đăng nhập">
                 <span class="icon-user"></span> Đăng nhập
             </a>
+            @endguest
+            @auth
+                <div class="user-dropdown-container">
+            
+            <a href="#" class="user-name-link">
+                <span class="icon-user"></span> 
+                Hello, <strong>{{ Auth::user()->name ?? Auth::user()->full_name }}</strong>
+                <span class="arrow-down">▼</span>
+            </a>
+
+            <ul class="custom-dropdown-menu">
+                <li><a href="#">Quản lý tài khoản</a></li>
+                <li><a href="#">Đơn hàng của tôi</a></li>
+                <li class="divider"></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="logout-btn">Đăng xuất</button>
+                    </form>
+                </li>
+            </ul>
+
+        </div>
+            @endauth
             <a href="#cart" class="header-icon cart-icon" title="Giỏ hàng">
                 <span class="icon-cart">
                     <span class="cart-badge">0</span>

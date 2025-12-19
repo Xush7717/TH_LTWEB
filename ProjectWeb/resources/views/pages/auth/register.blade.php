@@ -6,10 +6,19 @@
 <div class="login-container">
     <h2>Đăng ký tài khoản</h2>
     <form action="{{ route('register.post') }}" method="POST">
+        @if ($errors->any())
+    <div class="alert alert-danger" style="color: red; background: #f8d7da; padding: 10px; margin-bottom: 10px;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         @csrf
         <div class="form-group">
-            <label for="fullname">Họ và tên:</label>
-            <input type="text" id="fullname" name="fullname" required>
+            <label for="full_name">Họ và tên:</label>
+            <input type="text" id="full_name" name="full_name" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>

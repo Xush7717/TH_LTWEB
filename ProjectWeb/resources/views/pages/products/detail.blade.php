@@ -28,7 +28,9 @@
                 </ul>
             </div>
             <div class="product-actions">
-                <button class="btn-add-cart">Thêm vào giỏ hàng</button>
+            <a href="{{ route('cart.add', $product->id) }}" class="btn btn-warning">
+            Thêm vào giỏ hàng
+            </a>
                 <button class="btn-buy-now">Mua ngay</button>
             </div>
         </div>
