@@ -26,7 +26,8 @@ class AuthController extends Controller
             'username' => $request->username,
             'password' => $request->password
         ];
-
+        //dd($credentials);
+        
         // Nếu bạn muốn đăng nhập bằng Email thì sửa dòng trên thành: 'email' => $request->username
 
         if (Auth::attempt($credentials)) {
@@ -37,6 +38,7 @@ class AuthController extends Controller
             
             // Nếu là Admin
             if (Auth::user()->role == 'admin') {
+                //  dd("ĐĂNG NHẬP THÀNH CÔNG! (User/Pass đúng)");
                 return redirect()->route('admin.dashboard')->with('success', 'Chào mừng Admin quay lại!');
             }
 
@@ -45,6 +47,7 @@ class AuthController extends Controller
         }
 
         // 3. Đăng nhập thất bại
+        dd("Đăng nhập thất bại! Username hoặc Password trong Database không khớp với cái bạn nhập.");
         return redirect()->back()->with('error', 'Ten dang nhap hoặc mật khẩu không đúng!');
     }
 
@@ -79,7 +82,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect()->route('login')->with('success', 'Đã đăng xuất thành công!');
     }
    
 }
