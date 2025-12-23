@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('phone_number', 20);
             $table->text('shipping_address');
             $table->text('note')->nullable();
-            $table->string('payment_method')->default('COD');
             $table->decimal('total_money', 10, 2);
             $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->dateTime('order_date');

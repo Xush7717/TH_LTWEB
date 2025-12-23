@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('name', 200);
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('stock_quantity')->default(0);
             $table->string('thumbnail', 255)->nullable();
-            $table->string('scale', 50)->nullable();
-            $table->string('grade', 50)->nullable();
             $table->string('manufacturer', 100)->nullable();
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->timestamps();
         });
     }
