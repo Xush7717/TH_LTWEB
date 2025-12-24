@@ -11,7 +11,7 @@
         <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Back to List</a>
     </div>
 
-    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.products.store') }}" method="POST">
         @csrf
 
         <div class="form-row">
@@ -24,8 +24,8 @@
             </div>
 
             <div class="form-group">
-                <label for="category_id" class="form-label">Category</label>
-                <select id="category_id" name="category_id" class="form-select">
+                <label for="category_id" class="form-label">Category *</label>
+                <select id="category_id" name="category_id" class="form-select" required>
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -65,39 +65,22 @@
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="scale" class="form-label">Scale</label>
-                <input type="text" id="scale" name="scale" class="form-input" value="{{ old('scale') }}" placeholder="e.g., 1/144">
-                @error('scale')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="grade" class="form-label">Grade</label>
-                <input type="text" id="grade" name="grade" class="form-input" value="{{ old('grade') }}" placeholder="e.g., HG, RG, MG">
-                @error('grade')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="manufacturer" class="form-label">Manufacturer</label>
-                <input type="text" id="manufacturer" name="manufacturer" class="form-input" value="{{ old('manufacturer') }}" placeholder="e.g., Bandai">
-                @error('manufacturer')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
+        <div class="form-group">
+            <label for="manufacturer" class="form-label">Manufacturer</label>
+            <input type="text" id="manufacturer" name="manufacturer" class="form-input" value="{{ old('manufacturer') }}" placeholder="e.g., Bandai">
+            @error('manufacturer')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="thumbnail" class="form-label">Product Image</label>
-            <input type="file" id="thumbnail" name="thumbnail" class="form-file" accept="image/*" onchange="previewImage(this, 'image-preview')">
+            <label for="thumbnail" class="form-label">Product Image URL</label>
+            <input type="text" id="thumbnail" name="thumbnail" class="form-input" value="{{ old('thumbnail') }}" placeholder="https://example.com/image.jpg" onchange="previewImage(this)">
             @error('thumbnail')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
             <div class="image-preview" id="image-preview-container" style="display: none; margin-top: 10px;">
+                <p class="text-muted">Preview:</p>
                 <img id="image-preview" src="" alt="Preview" style="max-width: 200px; border-radius: 5px;">
             </div>
         </div>
@@ -111,17 +94,21 @@
 
 @push('scripts')
 <script>
-    function previewImage(input, previewId) {
+    function previewImage(input) {
         const container = document.getElementById('image-preview-container');
-        const preview = document.getElementById(previewId);
+        const preview = document.getElementById('image-preview');
+        const url = input.value.trim();
 
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                container.style.display = 'block';
+        if (url) {
+            preview.src = url;
+            container.style.display = 'block';
+
+            // Hide preview if image fails to load
+            preview.onerror = function() {
+                container.style.display = 'none';
             };
-            reader.readAsDataURL(input.files[0]);
+        } else {
+            container.style.display = 'none';
         }
     }
 </script>
