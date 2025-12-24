@@ -3,13 +3,22 @@
 @section('title', 'Đăng ký - TBShop')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="login-container">
     <h2>Đăng ký tài khoản</h2>
     <form action="{{ route('register.post') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="fullname">Họ và tên:</label>
-            <input type="text" id="fullname" name="fullname" required>
+            <label for="full_name">Họ và tên:</label>
+            <input type="text" id="full_name" name="full_name" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>

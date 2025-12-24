@@ -50,6 +50,25 @@ Route::delete('/remove-from-cart/{id}', [CartController::class, 'remove'])->name
 // --- THÊM ĐOẠN NÀY (Để khách bấm nút Đặt hàng) ---
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 // ------------------------------------------------
+// --- KHU VỰC CẦN ĐĂNG NHẬP MỚI DÙNG ĐƯỢC ---
+Route::middleware(['auth'])->group(function () {
+    
+    // Thêm vào giỏ
+    Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    
+    // Mua ngay
+    Route::get('/buy-now/{id}', [CartController::class, 'buyNow'])->name('cart.buyNow');
+    
+    // Xem giỏ hàng (Nếu bạn muốn khách xem được giỏ thì đưa dòng này ra ngoài group)
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    
+    // Cập nhật & Xóa
+    Route::patch('/update-cart', [CartController::class, 'update'])->name('cart.update');
+    Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    
+    // Thanh toán
+    //Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout');
+});
 // Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
     // Dashboard
@@ -70,5 +89,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Users
     Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
     Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
-
 }); 
+// Nhóm các Route dành riêng cho Admin
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    
+    // Trang Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    
+    // 1. Quản lý Sản phẩm (Products)
+    // Nếu bạn chưa có hàm adminIndex trong ProductController thì trỏ tạm về index thường
+    // Hoặc viết: function() { return "Trang quản lý sản phẩm"; }
+    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
+
+    // 2. Quản lý Đơn hàng (Orders) - Viết tạm hàm rỗng để không lỗi
+    Route::get('/orders', function() {
+        return "Trang quản lý đơn hàng (Đang xây dựng)";
+    })->name('admin.orders.index');
+
+    // 3. Quản lý Danh mục (Categories) - Viết tạm
+    Route::get('/categories', function() {
+        return "Trang quản lý danh mục (Đang xây dựng)";
+    })->name('admin.categories.index');
+
+    // 4. Quản lý Người dùng (Users) - Viết tạm
+    Route::get('/users', function() {
+        return "Trang quản lý người dùng (Đang xây dựng)";
+    })->name('admin.users.index'); 
+});
