@@ -12,7 +12,10 @@ class HomeController extends Controller
         // Fetch 4 latest products for featured section
         $featuredProducts = Product::latest()->take(4)->get();
 
-        return view('pages.home', compact('featuredProducts'));
+        // Fetch 8 latest products for main product list (skip the featured ones)
+        $newArrivals = Product::latest()->skip(4)->take(8)->get();
+
+        return view('pages.home', compact('featuredProducts', 'newArrivals'));
     }
 
     public function about()

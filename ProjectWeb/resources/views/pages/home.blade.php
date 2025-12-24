@@ -24,18 +24,20 @@
     <h2>Sản phẩm nổi bật</h2>
     <div class="products-list">
         @foreach ($featuredProducts as $product)
-        <a href="{{ route('product.detail', $product->id) }}">
             <div class="product-card">
-                <img src="{{ $product->thumbnail }}" alt="{{ $product->name }}">
+                <a href="{{ route('product.detail', $product->id) }}">
+                    <img src="{{ $product->thumbnail }}" alt="{{ $product->name }}">
+                </a>
                 <div class="product-info">
-                    <h3>{{ $product->name }}</h3>
+                    <a href="{{ route('product.detail', $product->id) }}">
+                        <h3>{{ $product->name }}</h3>
+                    </a>
                     <div class="price-container">
                         <span class="product-price">{{ number_format($product->price, 0, ',', '.') }}₫</span>
                     </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
+                    <a href="{{ route('cart.add', $product->id) }}" class="add-to-cart">Thêm vào giỏ</a>
                 </div>
             </div>
-        </a>
         @endforeach
     </div>
     <div class="slider-controls">
@@ -46,132 +48,49 @@
 
 <section class="main-content">
     <section class="new-arrivals-section" id="products">
-        <h2>Danh sách sản phẩm</h2>
+        <!-- Section Header with Flex Layout -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;">Danh sách sản phẩm</h2>
+            <a href="{{ route('products.index') }}" class="view-all-link" style="font-size: 14px; padding: 8px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: background-color 0.3s; display: inline-block;">
+                Xem tất cả →
+            </a>
+        </div>
+
+        <!-- Product Grid -->
         <div class="products-list">
-            <div class="product-card">
-                <img src="{{ asset('images/products/hg_calibarn.jpg') }}" alt="HG Calibarn">
-                <div class="product-info">
-                    <h3>HG Calibarn</h3>
-                    <div class="price-container">
-                        <span class="product-price">500,000₫</span>
+            @foreach ($newArrivals as $product)
+                <div class="product-card">
+                    <a href="{{ route('product.detail', $product->id) }}">
+                        <img src="{{ $product->thumbnail }}" alt="{{ $product->name }}">
+                    </a>
+                    <div class="product-info">
+                        <a href="{{ route('product.detail', $product->id) }}">
+                            <h3>{{ $product->name }}</h3>
+                        </a>
+                        <div class="price-container">
+                            <span class="product-price">{{ number_format($product->price, 0, ',', '.') }}₫</span>
+                        </div>
+                        <a href="{{ route('cart.add', $product->id) }}" class="add-to-cart">Thêm vào giỏ</a>
                     </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
                 </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/hg_lfrith.jpg') }}" alt="HG Lfrith">
-                <div class="product-info">
-                    <h3>HG Lfrith</h3>
-                    <div class="price-container">
-                        <span class="product-price">380,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/hg_gquuuuuux.jpg') }}" alt="HG Gquuuuuux">
-                <div class="product-info">
-                    <h3>HG Gquuuuuux</h3>
-                    <div class="price-container">
-                        <span class="product-price">600,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/hg_mighty-strike-freedom.jpg') }}" alt="HG Mighty Strike Freedom">
-                <div class="product-info">
-                    <h3>HG Mighty Strike Freedom</h3>
-                    <div class="price-container">
-                        <span class="product-price">650,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/rg_astray.jpg') }}" alt="RG Astray">
-                <div class="product-info">
-                    <h3>RG Astray Red Frame</h3>
-                    <div class="price-container">
-                        <span class="product-price">560,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/rg_rx-78-2.jpg') }}" alt="RX-78-2 Gundam">
-                <div class="product-info">
-                    <h3>RG RX-78-2 2.0</h3>
-                    <div class="price-container">
-                        <span class="product-price">1,100,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/rg_God-Gundam.jpg') }}" alt="RG God Gundam">
-                <div class="product-info">
-                    <h3>RG God Gundam</h3>
-                    <div class="price-container">
-                        <span class="product-price">750,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/rg_unicorn.jpg') }}" alt="RG Unicorn">
-                <div class="product-info">
-                    <h3>RG Unicorn</h3>
-                    <div class="price-container">
-                        <span class="product-price">780,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/mg_vidar.jpg') }}" alt="MG Vidar">
-                <div class="product-info-mg">
-                    <h3>MG Vidar</h3>
-                    <div class="price-container">
-                        <span class="product-price">1,500,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/mg_eclipse.jpg') }}" alt="MG Eclipse">
-                <div class="product-info-mg">
-                    <h3>MG Eclipse</h3>
-                    <div class="price-container">
-                        <span class="product-price">1,200,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/mg_build-strike.jpg') }}" alt="MG Build Strike">
-                <div class="product-info-mg">
-                    <h3>MG Build Strike</h3>
-                    <div class="price-container">
-                        <span class="product-price">900,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <img src="{{ asset('images/products/mgex_strike-freedom.jpg') }}" alt="MGEX Strike Freedom">
-                <div class="product-info-mg">
-                    <h3>MGEX Strike Freedom</h3>
-                    <div class="price-container">
-                        <span class="product-price">4,000,000₫</span>
-                    </div>
-                    <button class="add-to-cart">Thêm vào giỏ</button>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 </section>
 @endsection
+
+@push('page-styles')
+<style>
+    .view-all-link:hover {
+        background-color: #0056b3 !important;
+        transform: translateX(2px);
+    }
+
+    .view-all-link:active {
+        transform: scale(0.98);
+    }
+</style>
+@endpush
 
 @push('page-scripts')
 <script>

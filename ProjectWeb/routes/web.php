@@ -25,6 +25,8 @@ Route::get('/categories/rg', [CategoryController::class, 'rg'])->name('category.
 Route::get('/categories/mg', [CategoryController::class, 'mg'])->name('category.mg');
 
 // Product routes
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/category/{id}', [ProductController::class, 'filterByCategory'])->name('products.category');
 Route::get('/products/{id}', [ProductController::class, 'detail'])->name('product.detail');
 // Cart routes
 Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
@@ -43,7 +45,7 @@ Route::patch('/update-cart', [CartController::class, 'update'])->name('cart.upda
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); // Xem giỏ hàng
 Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add'); // Thêm vào giỏ
 Route::patch('/update-cart', [CartController::class, 'update'])->name('cart.update'); // Sửa số lượng
-Route::delete('/remove-from-cart', [CartController::class, 'remove'])->name('cart.remove'); // Xóa món
+Route::delete('/remove-from-cart/{id}', [CartController::class, 'remove'])->name('cart.remove'); // Xóa món
 
 // --- THÊM ĐOẠN NÀY (Để khách bấm nút Đặt hàng) ---
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');

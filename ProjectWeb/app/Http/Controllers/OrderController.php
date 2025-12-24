@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -59,19 +58,18 @@ class OrderController extends Controller
 
             // 5. Nếu lưu thành công thì Xóa giỏ hàng
             session()->forget('cart');
-            
+
             // Xác nhận giao dịch
             DB::commit();
 
             return redirect()->route('home')->with('success', 'Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.');
-
         } catch (\Exception $e) {
             // Nếu có lỗi thì hủy bỏ mọi thay đổi
             DB::rollBack();
-            
+
             // Debug lỗi (nếu cần thì mở dòng dd($e->getMessage()) ra để xem)
             // dd($e->getMessage());
-            
+
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi xử lý đơn hàng, vui lòng thử lại.');
         }
     }

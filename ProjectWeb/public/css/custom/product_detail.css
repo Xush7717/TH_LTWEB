@@ -62,6 +62,16 @@
     line-height: 1.6;
 }
 
+/* Product Description Text - Preserve line breaks from database */
+.product-description-text {
+    white-space: pre-line; /* Preserves newlines but collapses multiple spaces */
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+    word-wrap: break-word; /* Ensure long words don't overflow */
+}
+
 /* Add to cart button style (already exists but ensuring it looks good in this context) */
 .product-detail-container .add-to-cart {
     display: inline-block; /* Change from block to inline-block if needed, but block is fine for full width */

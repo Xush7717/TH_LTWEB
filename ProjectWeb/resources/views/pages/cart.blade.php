@@ -26,15 +26,22 @@
                         <div class="flex w-2/5"> 
                             <div class="w-20">
                                 <img class="h-20 w-20 object-cover rounded" 
-                                    src="{{ Str::startsWith($details['image'], 'http') ? $details['image'] : asset($details['image']) }}" 
+                                    src="{{$details['image'] ?? 'https://via.placeholder.com/80'}}" 
                                     alt="{{ $details['name'] }}">
                             </div>
                             <div class="flex flex-col justify-between ml-4 flex-grow">
                                 <span class="font-bold text-sm">{{ $details['name'] }}</span>
                                 <span class="text-red-500 text-xs">{{ $details['series'] ?? 'Gundam' }}</span>
-                                <a href="{{ route('cart.remove', $id) }}" onclick="return confirm('Xóa sản phẩm này?')" class="font-semibold hover:text-red-500 text-gray-500 text-xs mt-2 cursor-pointer">
-                                    <i class="fa fa-trash"></i> Xóa
-                                </a>
+                                <form action="{{ route('cart.remove', $id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="font-semibold hover:text-red-500 text-gray-500 text-xs mt-2 cursor-pointer"
+                                            style="border:none; background:none; padding:0; font-family:inherit;"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">
+                                        <i class="fa fa-trash"></i> Xóa
+                                    </button>
+                                </form>
                             </div>
                         </div>
 
