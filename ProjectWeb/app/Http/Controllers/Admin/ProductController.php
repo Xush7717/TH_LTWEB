@@ -70,4 +70,12 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')
             ->with('success', 'Product deleted successfully.');
     }
+    public function detail($id)
+    {
+        // 1. Tìm sản phẩm theo ID, nếu không thấy thì báo lỗi 404
+        $product = Product::findOrFail($id);
+
+        // 2. Trả về giao diện chi tiết và truyền biến $product sang
+        return view('pages.product_detail', compact('product'));
+    }
 }
