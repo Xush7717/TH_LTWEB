@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -29,19 +28,10 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
-            'scale' => 'nullable|string|max:50',
-            'grade' => 'nullable|string|max:50',
             'manufacturer' => 'nullable|string|max:100',
-            'category_id' => 'nullable|exists:categories,id',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'required|exists:categories,id',
+            'thumbnail' => 'nullable|url|max:500',
         ]);
-
-        if ($request->hasFile('thumbnail')) {
-            $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/products'), $filename);
-            $validated['thumbnail'] = 'images/products/' . $filename;
-        }
 
         Product::create($validated);
 
@@ -62,23 +52,10 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
-            'scale' => 'nullable|string|max:50',
-            'grade' => 'nullable|string|max:50',
             'manufacturer' => 'nullable|string|max:100',
-            'category_id' => 'nullable|exists:categories,id',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'required|exists:categories,id',
+            'thumbnail' => 'nullable|url|max:500',
         ]);
-
-        if ($request->hasFile('thumbnail')) {
-            if ($product->thumbnail && file_exists(public_path($product->thumbnail))) {
-                unlink(public_path($product->thumbnail));
-            }
-
-            $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/products'), $filename);
-            $validated['thumbnail'] = 'images/products/' . $filename;
-        }
 
         $product->update($validated);
 
@@ -88,10 +65,6 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if ($product->thumbnail && file_exists(public_path($product->thumbnail))) {
-            unlink(public_path($product->thumbnail));
-        }
-
         $product->delete();
 
         return redirect()->route('admin.products.index')

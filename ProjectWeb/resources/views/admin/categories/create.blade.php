@@ -30,6 +30,20 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="scale" class="form-label">Scale (e.g., 1/144, 1/100)</label>
+            <select id="scale" name="scale" class="form-input">
+                <option value="">-- Select Scale --</option>
+                <option value="1/144" {{ old('scale') == '1/144' ? 'selected' : '' }}>1/144</option>
+                <option value="1/100" {{ old('scale') == '1/100' ? 'selected' : '' }}>1/100</option>
+                <option value="1/60" {{ old('scale') == '1/60' ? 'selected' : '' }}>1/60</option>
+                <option value="Non-scale" {{ old('scale') == 'Non-scale' ? 'selected' : '' }}>Non-scale</option>
+            </select>
+            @error('scale')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Create Category</button>
             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Cancel</a>

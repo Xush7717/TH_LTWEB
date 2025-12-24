@@ -17,6 +17,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Scale</th>
                     <th>Description</th>
                     <th>Products Count</th>
                     <th>Created At</th>
@@ -28,6 +29,7 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
+                    <td>{{ $category->scale ?? 'N/A' }}</td>
                     <td>{{ Str::limit($category->description, 50) }}</td>
                     <td>{{ $category->products_count }}</td>
                     <td>{{ $category->created_at->format('d M Y') }}</td>

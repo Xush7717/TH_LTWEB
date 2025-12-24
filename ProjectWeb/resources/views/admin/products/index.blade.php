@@ -19,9 +19,9 @@
                     <th>Thumbnail</th>
                     <th>Name</th>
                     <th>Category</th>
+                    <th>Scale</th>
                     <th>Price</th>
                     <th>Stock</th>
-                    <th>Grade</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,16 +31,17 @@
                     <td>{{ $product->id }}</td>
                     <td>
                         @if($product->thumbnail)
-                            <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}" class="table-thumbnail">
+                            <img src="{{ $product->thumbnail }}" alt="{{ $product->name }}" class="table-thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="text-muted" style="display: none;">No image</span>
                         @else
                             <span class="text-muted">No image</span>
                         @endif
                     </td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name ?? 'N/A' }}</td>
+                    <td>{{ $product->category->scale ?? 'N/A' }}</td>
                     <td>{{ number_format($product->price, 0) }} ₫</td>
                     <td>{{ $product->stock_quantity }}</td>
-                    <td>{{ $product->grade }}</td>
                     <td>
                         <div class="btn-group">
                             <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-secondary">Edit</a>
