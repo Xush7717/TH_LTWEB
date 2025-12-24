@@ -10,7 +10,7 @@
     <section class="product-detail">
         <div class="product-detail-container">
             <div class="product-image">
-                <img src="{{ !empty($product->image) ? $product->image : asset('images/products/default.jpg') }}" 
+                <img src="{{ !empty($product->thumbnail) ? $product->thumbnail : asset('images/products/default.jpg') }}" 
      alt="{{ $product->name ?? 'Sản phẩm' }}">
             </div>
             <div class="product-details">
