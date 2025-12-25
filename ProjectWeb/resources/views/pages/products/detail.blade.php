@@ -29,18 +29,36 @@
                     </ul>
                 </div>
                 <div class="product-actions" style="margin-top: 20px;">
-
+    
+                {{-- TRƯỜNG HỢP 1: Đã đăng nhập -> Hiện nút mua hàng bình thường --}}
+                @auth
                     <a href="{{ route('cart.add', $product->id) }}" class="btn btn-warning btn-add-cart"
-                        style="padding: 10px 20px; background-color: #fff; color: #28a745; border: 1px solid #28a745; text-decoration: none; border-radius: 4px; font-weight: bold; margin-right: 10px;">
+                    style="padding: 10px 20px; background-color: #fff; color: #28a745; border: 1px solid #28a745; text-decoration: none; border-radius: 4px; font-weight: bold; margin-right: 10px;">
                         Thêm vào giỏ
                     </a>
 
-                    <a href="{{ route('cart.buyNow', $product->id) }}"
-                        style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                    <a href="{{ route('cart.buyNow', $product->id) }}" 
+                    style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
                         Mua ngay
                     </a>
+                @endauth
 
-                </div>
+                {{-- TRƯỜNG HỢP 2: Chưa đăng nhập -> Bấm vào chuyển sang trang Login --}}
+                @guest
+                    <a href="{{ route('login') }}" 
+                    onclick="alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ!');"
+                    style="padding: 10px 20px; background-color: #fff; color: #6c757d; border: 1px solid #6c757d; text-decoration: none; border-radius: 4px; font-weight: bold; margin-right: 10px;">
+                        Thêm vào giỏ
+                    </a>
+
+                    <a href="{{ route('login') }}" 
+                    onclick="alert('Vui lòng đăng nhập để mua hàng!');"
+                    style="padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                        Mua ngay
+                    </a>
+                @endguest
+
+            </div>
             </div>
         </div>
     </section>

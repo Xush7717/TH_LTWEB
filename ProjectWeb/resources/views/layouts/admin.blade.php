@@ -63,7 +63,12 @@
                 <h1>@yield('page-title', 'Dashboard')</h1>
                 <div class="admin-user">
                     <span>Admin User</span>
-                    <a href="#" class="btn btn-sm btn-secondary">Logout</a>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </header>
 
